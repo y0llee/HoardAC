@@ -2,6 +2,8 @@
 Anti-Cheat system for the SA-MP.
 Author: yollee
 
+To enable Anti-Cheat, configure it using as s and connect include (#include <HoardAC>)
+
 Functions:
 ```pawn
 SetPlayerPosAC(playerid, Float:X, Float:Y, Float:Z); - Sets the position for the player through the anti-cheat method.
