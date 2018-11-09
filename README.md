@@ -1,4 +1,4 @@
-# HoardAC ( 1 . 46 )
+# HoardAC ( 1 . 53 )
 Anti-Cheat system for the SA-MP.
 Author: yollee
 
@@ -17,15 +17,15 @@ GetPlayerArmourAC(playerid); - Gets the true amount of the player's armor.
 ```
 Callback's:
 ```pawn
-public OnPlayerFlyHack(playerid); - Called when using a cheat on a fly, returns the playerid argument.
-public OnPlayerAimHack(playerid); - Called when using a cheat on a aim, returns the playerid argument.
-public OnPlayerWeaponHack(playerid); - Called when using a cheat on a weapon, returns the playerid argument.
+public OnPlayerFlyCheat(playerid); - Called when using a cheat on a fly, returns the playerid argument.
+public OnPlayerAimCheat(playerid); - Called when using a cheat on a aim, returns the playerid argument.
+public OnPlayerWeaponCheat(playerid); - Called when using a cheat on a weapon, returns the playerid argument.
 
-public OnPlayerMoneyHack(playerid); - Called when using a cheat on a money, returns the playerid argument.
-public OnPlayerHealthHack(playerid); - Called when using a cheat on a health, returns the playerid argument.
-public OnPlayerArmourHack(playerid); - Called when using a cheat on a armour, returns the playerid argument.
+public OnPlayerMoneyCheat(playerid); - Called when using a cheat on a money, returns the playerid argument.
+public OnPlayerHealthCheat(playerid); - Called when using a cheat on a health, returns the playerid argument.
+public OnPlayerArmourCheat(playerid); - Called when using a cheat on a armour, returns the playerid argument.
 
-public OnPlayerTeleportHack(playerid); - Called when using a cheat on a teleport, returns the playerid argument.
+public OnPlayerTeleportCheat(playerid); - Called when using a cheat on a teleport, returns the playerid argument.
 public OnPlayerNopPos(playerid); - Called when using a cheat on a nop position, returns the playerid argument.
 public OnPlayerHighPing(playerid); - Called when ping is greater than limited. Returns the playerid argument.
 ```
