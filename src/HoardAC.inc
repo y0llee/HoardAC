@@ -22,26 +22,6 @@
 
 // Author: yollee
 
-#include <a_samp>
-
-public OnGameModeInit()
-{
-	new a[][] =     {"Unarmed (Fist)","Brass K"};
-	#pragma unused a
-
-	print("\n----------------------------------");
-	print(" Hoard Anti-Cheat loaded!");
-	print(" by yollee");
-	print("----------------------------------\n");
-	
-    return 1;
-}
-
-public OnGameModeExit()
-{
-	return 1;
-}
-
 // List Anti-Cheats:
 
 // 		WeaponHack
@@ -54,6 +34,27 @@ public OnGameModeExit()
 // 		AimHack
 // 		NopPos
 // 		HighPing
+
+#include <a_samp>
+
+public OnGameModeInit()
+{
+	new a[][] =     {"Unarmed (Fist)","Brass K"};
+	#pragma unused a
+
+	print("\n----------------------------------");
+	print(" Hoard Anti-Cheat loaded!");
+	print(" by yollee");
+	print("----------------------------------\n");
+	return 1;
+}
+#if defined _ALS_OnGameModeInit
+		#undef OnGameModeInit
+	#else
+		#define _ALS_OnGameModeInit
+	#endif
+	#define OnGameModeInit AC_OnGameModeInit
+	forward OnGameModeInit();
 
 new
 			 wInfo[MAX_PLAYERS][47],
@@ -93,10 +94,15 @@ public OnPlayerConnect(playerid)
 	MoneyTimer[playerid] = SetTimerEx("OnPlayerMoneyHack", 1000, true, "i", playerid);
 	
 	PingTimer[playerid] = SetTimerEx("OnPlayerHighPing", 1000, true, "i", playerid);
-
-	
-	return 1;
+    return 1;
 }
+#if defined _ALS_OnPlayerConnect
+		#undef OnPlayerConnect
+	#else
+		#define _ALS_OnPlayerConnect
+	#endif
+	#define OnPlayerConnect AC_OnPlayerConnect
+	forward OnPlayerConnect(playerid);
 
 public OnPlayerDisconnect(playerid)
 {
@@ -106,19 +112,28 @@ public OnPlayerDisconnect(playerid)
 	KillTimer(ArmTimer[playerid]);
 	KillTimer(MoneyTimer[playerid]);
 	KillTimer(PingTimer[playerid]);
-	return 1;
+    return 1;
 }
+#if defined _ALS_OnPlayerDisconnect
+		#undef OnPlayerDisconnect
+	#else
+		#define _ALS_OnPlayerDisconnect
+	#endif
+	#define OnPlayerDisconnect AC_OnPlayerDisconnect
+	forward OnPlayerDisconnect(playerid, reason);
 
 public OnPlayerSpawn(playerid)
 {
 	PlayerSpawned[playerid] = true;
 	return 1;
 }
-
-public OnPlayerDeath(playerid, killerid, reason)
-{
-	return 1;
-}
+#if defined _ALS_OnPlayerSpawn
+		#undef OnPlayerSpawn
+	#else
+		#define _ALS_OnPlayerSpawn
+	#endif
+	#define OnPlayerSpawn AC_OnPlayerSpawn
+	forward OnPlayerSpawn(playerid);
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
@@ -126,8 +141,15 @@ public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY
 	new Float:tmp, Float:hX, Float:hY, Float:hZ;
 	GetPlayerLastShotVectors(playerid, tmp, tmp, tmp, hX, hY, hZ);
 	if(!IsPlayerInRangeOfPoint(playerid, 3.0, hX, hY, hZ) && !IsPlayerFacingCoords(playerid, hX, hY, 8)) CallRemoteFunction("OnPlayerAimHack", "i", playerid);
-	return 1;
+    return 1;
 }
+#if defined _ALS_OnPlayerWeaponShot
+		#undef OnPlayerWeaponShot
+	#else
+		#define _ALS_OnPlayerWeaponShot
+	#endif
+	#define OnPlayerWeaponShot AC_OnPlayerWeaponShot
+	forward OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ);
 
 stock GetWeaponSlot(weaponid)
 {
@@ -252,25 +274,46 @@ stock GetPlayerHealthAC(playerid)
 }
 #define GetPlayerHealth GetPlayerHealthAC
 
+#if defined _ALS_GetPlayerHealthAC
+    #undef    GetPlayerHealthAC
+#else
+    #define    _ALS_GetPlayerHealthAC
+#endif
+
 stock GetPlayerArmourAC(playerid)
 {
 	return ArmA[playerid];
 }
 #define GetPlayerArmour GetPlayerArmourAC
+#if defined _ALS_GetPlayerArmourAC
+    #undef    GetPlayerArmourAC
+#else
+    #define    _ALS_GetPlayerArmourAC
+#endif
 
 stock GetPlayerMoneyAC(playerid)
 {
 	return MonA[playerid];
 }
 #define GetPlayerMoney GetPlayerMoneyAC
+#if defined _ALS_GetPlayerMoneyAC
+    #undef    GetPlayerMoneyAC
+#else
+    #define    _ALS_GetPlayerMoneyAC
+#endif
 
 stock SetPlayerPosAC(playerid, Float:X, Float:Y, Float:Z)
 {
-    acX[playerid] = x, acY[playerid] = y, acZ[playerid] = z;
-    SetPlayerPos(playerid, x, y, z);
+    acX[playerid] = X, acY[playerid] = Y, acZ[playerid] = Z;
+    SetPlayerPos(playerid, X, Y, Z);
     return 1;
 }
 #define SetPlayerPos SetPlayerPosAC
+#if defined _ALS_SetPlayerPosAC
+    #undef    SetPlayerPosAC
+#else
+    #define    _ALS_SetPlayerPosAC
+#endif
 
 stock SetPlayerHealthAC(playerid, health)
 {
@@ -280,6 +323,12 @@ stock SetPlayerHealthAC(playerid, health)
 	return 1;
 }
 #define SetPlayerHealth SetPlayerHealthAC
+#if defined _ALS_SetPlayerHealthAC
+    #undef    SetPlayerHealthAC
+#else
+    #define    _ALS_SetPlayerHealthAC
+#endif
+
 
 stock SetPlayerArmourAC(playerid, armour)
 {
@@ -289,6 +338,11 @@ stock SetPlayerArmourAC(playerid, armour)
 	return 1;
 }
 #define SetPlayerArmour SetPlayerArmourAC
+#if defined _ALS_SetPlayerArmourAC
+    #undef    SetPlayerArmourAC
+#else
+    #define    _ALS_SetPlayerArmourAC
+#endif
 
 stock SetPlayerMoneyAC(playerid, money)
 {
@@ -298,12 +352,22 @@ stock SetPlayerMoneyAC(playerid, money)
 	return 1;
 }
 #define SetPlayerMoney SetPlayerMoneyAC
+#if defined _ALS_SetPlayerMoneyAC
+    #undef    SetPlayerMoneyAC
+#else
+    #define    _ALS_SetPlayerMoneyAC
+#endif
 
 stock SetMaxPing(playerid, ping)
 {
 	MaximPing = ping;
 	return 1;
 }
+#if defined _ALS_SetMaxPing
+    #undef    SetMaxPing
+#else
+    #define    _ALS_SetMaxPing
+#endif
 
 stock IsPlayerInWater(playerid)
 {
