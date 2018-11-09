@@ -93,7 +93,7 @@ public OnPlayerConnect(playerid)
 	ArmTimer[playerid] = SetTimerEx("OnPlayerArmourHack", 1000, true, "i", playerid);
 	MoneyTimer[playerid] = SetTimerEx("OnPlayerMoneyHack", 1000, true, "i", playerid);
 	
-	PingTimer[playerid] = SetTimerEx("OnPlayerHighPing", 1000, true, "i", playerid);
+	PingTimer[playerid] = SetTimerEx("OnPlayerHigPing", 1000, true, "i", playerid);
     return 1;
 }
 #if defined _ALS_OnPlayerConnect
@@ -239,8 +239,8 @@ public OnPlayerArmourHack(playerid)
 	return 1;
 }
 
-forward OnPlayerHighPing(playerid);
-public OnPlayerHighPing(playerid)
+forward OnPlayerHigPing(playerid);
+public OnPlayerHigPing(playerid)
 {
 	if(GetPlayerPing(playerid) > MaximPing) CallRemoteFunction("OnPlayerHighPing", "i", playerid);
 	return 1;
