@@ -14,7 +14,7 @@ public OnGameModeInit()
 
 public OnPlayerSpawn(playerid)
 {
-	SetPlayerPosAC(playerid, 15, 15, 15);
+	SetPlayerPosAC(playerid, 15, 15, 15); // your position
 	return 1;
 }
 ```
