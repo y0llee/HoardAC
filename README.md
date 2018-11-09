@@ -13,7 +13,7 @@ public OnGameModeInit()
 }
 ```
 
-Functions:
+# Functions:
 ```pawn
 SetPlayerPosAC(playerid, Float:X, Float:Y, Float:Z); - Sets the position for the player through the anti-cheat method.
 SetPlayerMoneyAC(playerid, money); - Sets the amount of money using the anti-cheat method.
@@ -24,7 +24,7 @@ GetPlayerMoneyAC(playerid); - Gets the true amount of player money.
 GetPlayerHealthAC(playerid); - Gets the true amount of health of the player.
 GetPlayerArmourAC(playerid); - Gets the true amount of the player's armor.
 ```
-Callback's:
+# Callback's:
 ```pawn
 public OnPlayerFlyCheat(playerid); - Called when using a cheat on a fly, returns the playerid argument.
 public OnPlayerAimCheat(playerid); - Called when using a cheat on a aim, returns the playerid argument.
