@@ -137,10 +137,10 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
-	if(wInfo[playerid][weaponid] != GetPlayerAmmo(playerid)) CallRemoteFunction("OnPlayerWeaponHack", "i", playerid);
+	if(wInfo[playerid][weaponid] != GetPlayerAmmo(playerid)) CallRemoteFunction("OnPlayerWeaponCheat", "i", playerid);
 	new Float:tmp, Float:hX, Float:hY, Float:hZ;
 	GetPlayerLastShotVectors(playerid, tmp, tmp, tmp, hX, hY, hZ);
-	if(!IsPlayerInRangeOfPoint(playerid, 3.0, hX, hY, hZ) && !IsPlayerFacingCoords(playerid, hX, hY, 8)) CallRemoteFunction("OnPlayerAimHack", "i", playerid);
+	if(!IsPlayerInRangeOfPoint(playerid, 3.0, hX, hY, hZ) && !IsPlayerFacingCoords(playerid, hX, hY, 8)) CallRemoteFunction("OnPlayerAimCheat", "i", playerid);
     return 1;
 }
 #if defined _ALS_OnPlayerWeaponShot
@@ -190,7 +190,7 @@ public OnPlayerFlyHack(playerid)
 	{
 	    if(strcmp(animlib, "SWIM", true) == 0 && strcmp(animname, "SWIM_crawl", true) == 0)
 	    {
-	        CallRemoteFunction("OnPlayerFlyHack", "i", playerid);
+	        CallRemoteFunction("OnPlayerFlyCheat", "i", playerid);
 	    }
 	}
 	return 1;
@@ -201,7 +201,7 @@ public OnPlayerTeleportHack(playerid)
 {
 	if(PlayerSpawned[playerid] == true)
 	{
-	    if(GetPlayerDistanceFromPoint(playerid, acX[playerid], acY[playerid], acZ[playerid]) > 100.0) CallRemoteFunction("OnPlayerTeleportHack", "i", playerid);
+	    if(GetPlayerDistanceFromPoint(playerid, acX[playerid], acY[playerid], acZ[playerid]) > 100.0) CallRemoteFunction("OnPlayerTeleportCheat", "i", playerid);
         GetPlayerPos(playerid, acX[playerid], acY[playerid], acZ[playerid]);
 
         new Float:X, Float:Y, Float:Z;
@@ -216,7 +216,7 @@ public OnPlayerHealthHack(playerid)
 {
     new Float:hp;
     GetPlayerHealth(playerid, hp);
-	if(HeaA[playerid] != hp) CallRemoteFunction("OnPlayerHealthHack", "i", playerid);
+	if(HeaA[playerid] != hp) CallRemoteFunction("OnPlayerHealthCheat", "i", playerid);
 	GetPlayerHealth(playerid, HeaA[playerid]);
 	return 1;
 }
@@ -224,7 +224,7 @@ public OnPlayerHealthHack(playerid)
 forward OnPlayerMoneyHack(playerid);
 public OnPlayerMoneyHack(playerid)
 {
-    if(MonA[playerid] != GetPlayerMoney(playerid)) CallRemoteFunction("OnPlayerMoneyHack", "i", playerid);
+    if(MonA[playerid] != GetPlayerMoney(playerid)) CallRemoteFunction("OnPlayerMoneyCheat", "i", playerid);
     MonA[playerid] = GetPlayerMoney(playerid);
 	return 1;
 }
@@ -234,7 +234,7 @@ public OnPlayerArmourHack(playerid)
 {
 	new Float:arm;
 	GetPlayerArmour(playerid, arm);
-    if(ArmA[playerid] != arm) CallRemoteFunction("OnPlayerArmourHack", "i", playerid);
+    if(ArmA[playerid] != arm) CallRemoteFunction("OnPlayerArmourCheat", "i", playerid);
     GetPlayerArmour(playerid, ArmA[playerid]);
 	return 1;
 }
