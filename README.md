@@ -1,4 +1,4 @@
-# HoardAC ( 1 . 61 )
+# HoardAC ( 1 . 89 )
 Anti-Cheat system for the SA-MP.
 Author: yollee
 
