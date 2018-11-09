@@ -31,7 +31,7 @@ public OnPlayerRequestClass(playerid, classid)
 public OnPlayerConnect(playerid)
 {
 	return 1;
-}
+}}
 
 public OnPlayerDisconnect(playerid, reason)
 {
