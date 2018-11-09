@@ -39,7 +39,7 @@ public OnPlayerNopPos(playerid); - Called when using a cheat on a nop position, 
 public OnPlayerHighPing(playerid); - Called when ping is greater than limited. Returns the playerid argument.
 ```
 
-Example of use:
+# Example of use:
 ```pawn
 forward OnPlayerFlyCheat(playerid);
 public OnPlayerFlyCheat(playerid)
