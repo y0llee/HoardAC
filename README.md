@@ -2,7 +2,7 @@
 Anti-Cheat system for the SA-MP.
 Author: yollee
 
-To enable Anti-Cheat, configure it using as s and connect include (#include <HoardAC>)
+To enable Anti-Cheat, configure it using as s and connect include.
 
 # Fix of false positives:
 ```pawn
