@@ -137,10 +137,10 @@ public OnPlayerSpawn(playerid)
 
 public OnPlayerWeaponShot(playerid, weaponid, hittype, hitid, Float:fX, Float:fY, Float:fZ)
 {
-	if(wInfo[playerid][weaponid] != GetPlayerAmmo(playerid)) CallRemoteFunction("OnPlayerWeaponCheat", "i", playerid);
+	if(wInfo[playerid][weaponid] != GetPlayerAmmo(playerid))  printf("HAC: %s uses cheat. (Weapon Cheat)", GetName(playerid)), CallRemoteFunction("OnPlayerWeaponCheat", "i", playerid);
 	new Float:tmp, Float:hX, Float:hY, Float:hZ;
 	GetPlayerLastShotVectors(playerid, tmp, tmp, tmp, hX, hY, hZ);
-	if(!IsPlayerInRangeOfPoint(playerid, 3.0, hX, hY, hZ) && !IsPlayerFacingCoords(playerid, hX, hY, 8)) CallRemoteFunction("OnPlayerAimCheat", "i", playerid);
+	if(!IsPlayerInRangeOfPoint(playerid, 3.0, hX, hY, hZ) && !IsPlayerFacingCoords(playerid, hX, hY, 8))  printf("HAC: %s uses cheat. (Aim Cheat)", GetName(playerid)), CallRemoteFunction("OnPlayerAimCheat", "i", playerid);
     return 1;
 }
 #if defined _ALS_OnPlayerWeaponShot
@@ -190,6 +190,7 @@ public OnPlayerFlyHack(playerid)
 	{
 	    if(strcmp(animlib, "SWIM", true) == 0 && strcmp(animname, "SWIM_crawl", true) == 0)
 	    {
+   	 		printf("HAC: %s uses cheat. (Fly Cheat)", GetName(playerid));
 	        CallRemoteFunction("OnPlayerFlyCheat", "i", playerid);
 	    }
 	}
@@ -201,13 +202,13 @@ public OnPlayerTeleportHack(playerid)
 {
 	if(PlayerSpawned[playerid] == true)
 	{
-	    if(GetPlayerDistanceFromPoint(playerid, acX[playerid], acY[playerid], acZ[playerid]) > 100.0) CallRemoteFunction("OnPlayerTeleportCheat", "i", playerid);
+		if(GetPlayerDistanceFromPoint(playerid, acX[playerid], acY[playerid], acZ[playerid]) > 100.0) printf("HAC: %s uses cheat. (Teleport Cheat)", GetName(playerid)), CallRemoteFunction("OnPlayerTeleportCheat", "i", playerid);
         GetPlayerPos(playerid, acX[playerid], acY[playerid], acZ[playerid]);
 
         new Float:X, Float:Y, Float:Z;
         GetPlayerPos(playerid, X, Y, Z);
 
-        if(!IsPlayerInRangeOfPoint(playerid, 5.0, X, Y, Z)) CallRemoteFunction("OnPlayerNopPos", "i", playerid);
+        if(!IsPlayerInRangeOfPoint(playerid, 5.0, X, Y, Z)) printf("HAC: %s uses cheat. (Nop Position)", GetName(playerid)), CallRemoteFunction("OnPlayerNopPos", "i", playerid);
 	}
 }
 
@@ -216,7 +217,7 @@ public OnPlayerHealthHack(playerid)
 {
     new Float:hp;
     GetPlayerHealth(playerid, hp);
-	if(HeaA[playerid] != hp) CallRemoteFunction("OnPlayerHealthCheat", "i", playerid);
+	if(HeaA[playerid] != hp) printf("HAC: %s uses cheat. (Health Cheat)", GetName(playerid)), CallRemoteFunction("OnPlayerHealthCheat", "i", playerid);
 	GetPlayerHealth(playerid, HeaA[playerid]);
 	return 1;
 }
@@ -224,7 +225,7 @@ public OnPlayerHealthHack(playerid)
 forward OnPlayerMoneyHack(playerid);
 public OnPlayerMoneyHack(playerid)
 {
-    if(MonA[playerid] != GetPlayerMoney(playerid)) CallRemoteFunction("OnPlayerMoneyCheat", "i", playerid);
+    if(MonA[playerid] != GetPlayerMoney(playerid)) printf("HAC: %s uses cheat. (Money Cheat)", GetName(playerid)), CallRemoteFunction("OnPlayerMoneyCheat", "i", playerid);
     MonA[playerid] = GetPlayerMoney(playerid);
 	return 1;
 }
@@ -234,7 +235,7 @@ public OnPlayerArmourHack(playerid)
 {
 	new Float:arm;
 	GetPlayerArmour(playerid, arm);
-    if(ArmA[playerid] != arm) CallRemoteFunction("OnPlayerArmourCheat", "i", playerid);
+    if(ArmA[playerid] != arm) printf("HAC: %s uses cheat. (Armour Cheat)", GetName(playerid)), CallRemoteFunction("OnPlayerArmourCheat", "i", playerid);
     GetPlayerArmour(playerid, ArmA[playerid]);
 	return 1;
 }
@@ -242,7 +243,7 @@ public OnPlayerArmourHack(playerid)
 forward OnPlayerHigPing(playerid);
 public OnPlayerHigPing(playerid)
 {
-	if(GetPlayerPing(playerid) > MaximPing) CallRemoteFunction("OnPlayerHighPing", "i", playerid);
+	if(GetPlayerPing(playerid) > MaximPing)  printf("HAC: at %s has big ping.", GetName(playerid)), CallRemoteFunction("OnPlayerHighPing", "i", playerid);
 	return 1;
 }
 
@@ -389,4 +390,11 @@ stock IsPlayerInWater(playerid)
         for(new t=0; t < sizeof water_places; t++)
                 if(GetPlayerDistanceFromPoint(playerid,water_places[t][1],water_places[t][2],water_places[t][3]) <= water_places[t][0]) return 1;
         return 0;
+}
+
+stock GetName(playerid)
+{
+	new name[MAX_PLAYER_NAME];
+	GetPlayerName(playerid, name, sizeof(name));
+	return name;
 }
