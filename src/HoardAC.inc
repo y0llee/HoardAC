@@ -272,6 +272,7 @@ public OnPlayerArmourHack(playerid)
 forward OnPlayerHigPing(playerid);
 public OnPlayerHigPing(playerid)
 {
+	if(PlayerSpawned[playerid] == false) return 0;
 	if(GetPlayerPing(playerid) > MaximPing)
     {
 		printf("HAC: At %s has big ping.", GetName(playerid));
