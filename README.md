@@ -4,6 +4,15 @@ Author: yollee
 
 To enable Anti-Cheat, configure it using as s and connect include (#include <HoardAC>)
 
+Fix of false positives:
+```pawn
+public OnGameModeInit()
+{
+	SetMaxPing(500);
+	return 1;
+}
+```
+
 Functions:
 ```pawn
 SetPlayerPosAC(playerid, Float:X, Float:Y, Float:Z); - Sets the position for the player through the anti-cheat method.
