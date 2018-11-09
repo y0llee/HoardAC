@@ -4,7 +4,7 @@ Author: yollee
 
 To enable Anti-Cheat, configure it using as s and connect include (#include <HoardAC>)
 
-Fix of false positives:
+# Fix of false positives:
 ```pawn
 public OnGameModeInit()
 {
