@@ -392,7 +392,7 @@ stock SetPlayerMoneyAC(playerid, money)
     #define    _ALS_SetPlayerMoneyAC
 #endif
 
-stock SetMaxPing(playerid, ping)
+stock SetMaxPing(ping)
 {
 	MaximPing = ping;
 	return 1;
