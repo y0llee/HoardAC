@@ -11,6 +11,12 @@ public OnGameModeInit()
 	SetMaxPing(500);
 	return 1;
 }
+
+public OnPlayerSpawn(playerid)
+{
+	SetPlayerPosAC(playerid, 15, 15, 15);
+	return 1;
+}
 ```
 
 # Functions:
