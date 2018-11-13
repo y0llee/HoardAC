@@ -48,8 +48,8 @@ TogglePlayerSpectatingAC(playerid, toggle); - Enables spectating mode for the pl
 
 # Example of use:
 ```pawn
-forward OnPlayerCheat(playerid, code); // code type: string
-public OnPlayerCheat(playerid, code)
+forward OnPlayerCheat(const playerid, const code[]);
+public OnPlayerCheat(const playerid, const code[])
 {
 	Kick(playerid);
 	return 1;
