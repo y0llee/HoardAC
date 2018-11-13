@@ -454,64 +454,64 @@ stock GetName(playerid)
 	return name;
 }
 
-forward timerpng(playerid, code);
-public timerpng(playerid, code)
+forward timerpng(playerid, code[]);
+public timerpng(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timermoney(playerid, code);
-public timermoney(playerid, code)
+forward timermoney(playerid, code[]);
+public timermoney(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerhp(playerid, code);
-public timerhp(playerid, code)
+forward timerhp(playerid, code[]);
+public timerhp(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerinvs(playerid, code);
-public timerinvs(playerid, code)
+forward timerinvs(playerid, code[]);
+public timerinvs(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerarm(playerid, code);
-public timerarm(playerid, code)
+forward timerarm(playerid, code[]);
+public timerarm(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timertp(playerid, code);
-public timertp(playerid, code)
+forward timertp(playerid, code[]);
+public timertp(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timernop(playerid, code);
-public timernop(playerid, code)
+forward timernop(playerid, code[]);
+public timernop(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerfly(playerid, code);
-public timerfly(playerid, code)
+forward timerfly(playerid, code[]);
+public timerfly(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerweapn(playerid, code);
-public timerweapn(playerid, code)
+forward timerweapn(playerid, code[]);
+public timerweapn(playerid, code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
