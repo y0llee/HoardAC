@@ -43,6 +43,7 @@ TogglePlayerSpectatingAC(playerid, toggle); - Enables spectating mode for the pl
 0x433: Cheat on Teleport
 0x982: Cheat on Fly
 0x541: Cheat on Invisible
+0x315: Cheat on SpeedHack (Vehicle)
 ```
 
 # Example of use:
