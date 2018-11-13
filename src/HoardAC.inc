@@ -25,7 +25,7 @@
 // List Anti-Cheats:
 
 // 		WeaponHack
-//              AntiDeAMX
+//      AntiDeAMX
 // 		FlyHack
 // 		MoneyHack
 // 		HealthHack
@@ -33,6 +33,7 @@
 // 		TeleportHack
 // 		NopPos
 // 		HighPing
+//      InvisibleHack
 
 #include <a_samp>
 #define NULL 0
@@ -49,10 +50,14 @@ new
 			 MonA[MAX_PLAYERS],
 			 Float:HeaA[MAX_PLAYERS],
 			 Float:ArmA[MAX_PLAYERS],
+			 
+			 bool:Invis[MAX_PLAYERS],
 
 			 HpTimer[MAX_PLAYERS],
 			 ArmTimer[MAX_PLAYERS],
 			 MoneyTimer[MAX_PLAYERS],
+			 
+			 InvisibleTimer[MAX_PLAYERS],
 
              WeaponTimer[MAX_PLAYERS],
 
@@ -90,11 +95,15 @@ public OnPlayerConnect(playerid)
 	HeaA[playerid] = NULL;
 	ArmA[playerid] = NULL;
 	MonA[playerid] = NULL;
+	
+	Invis[playerid] = false;
 
     PlayerSpawned[playerid] = false;
     
 	FlyTimer[playerid] = SetTimerEx("OnPlayerFlyHack", 1000, true, "i", playerid);
 	TpTimer[playerid] = SetTimerEx("OnPlayerTeleportHack", 1000, true, "i", playerid);
+	
+	InvisibleTimer[playerid] = SetTimerEx("OnPlayerInvisibleHack", 1000, true, "i", playerid);
 	
 	HpTimer[playerid] = SetTimerEx("OnPlayerHealthHack", 1000, true, "i", playerid);
 	ArmTimer[playerid] = SetTimerEx("OnPlayerArmourHack", 1000, true, "i", playerid);
@@ -135,6 +144,7 @@ public OnPlayerDisconnect(playerid)
 public OnPlayerSpawn(playerid)
 {
 	PlayerSpawned[playerid] = true;
+	Invis[playerid] = true;
 	HeaA[playerid] = 100.0;
 	return 1;
 }
@@ -188,6 +198,20 @@ public OnPlayerFlyHack(playerid)
    	 		printf("HAC: %s uses cheat. (Fly Cheat)", GetName(playerid));
 	        SetTimerEx("timerfly", 1000, false, "is", playerid, "0x982");
 	    }
+	}
+	return 1;
+}
+
+forward OnPlayerInvisibleHack(playerid);
+public OnPlayerInvisibleHack(playerid)
+{
+	if(PlayerSpawned[playerid] == true)
+	{
+		if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING && Invis[playerid] == false)
+		{
+			printf("HAC: %s uses cheat. (Invisible Cheat)", GetName(playerid));
+			SetTimerEx("timerinvs", 1000, false, "is", playerid, "0x541");
+		}
 	}
 	return 1;
 }
@@ -346,6 +370,18 @@ stock SetPlayerHealthAC(playerid, health)
     #define    _ALS_SetPlayerHealthAC
 #endif
 
+stock TogglePlayerSpectatingAC(playerid, toggle)
+{
+	if(toggle == 1) Invisible[playerid] = true;
+	else if(toggle == 0) Invisible[playerid] = false;
+	return 1;
+}
+#if defined _ALS_TogglePlayerSpectatingAC
+    #undef    TogglePlayerSpectatingAC
+#else
+    #define    _ALS_TogglePlayerSpectatingAC
+#endif
+
 
 stock SetPlayerArmourAC(playerid, armour)
 {
@@ -429,6 +465,13 @@ public timermoney(playerid, code)
 
 forward timerhp(playerid, code);
 public timerhp(playerid, code)
+{
+	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
+	return 1;
+}
+
+forward timerinvs(playerid, code);
+public timerinvs(playerid, code)
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
