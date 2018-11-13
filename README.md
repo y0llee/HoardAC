@@ -30,81 +30,22 @@ GetPlayerMoneyAC(playerid); - Gets the true amount of player money.
 GetPlayerHealthAC(playerid); - Gets the true amount of health of the player.
 GetPlayerArmourAC(playerid); - Gets the true amount of the player's armor.
 ```
-# Callback's:
+# Codes:
 ```pawn
-public OnPlayerFlyCheat(playerid); - Called when using a cheat on a fly, returns the playerid argument.
-public OnPlayerAimCheat(playerid); - Called when using a cheat on a aim, returns the playerid argument.
-public OnPlayerWeaponCheat(playerid); - Called when using a cheat on a weapon, returns the playerid argument.
-
-public OnPlayerMoneyCheat(playerid); - Called when using a cheat on a money, returns the playerid argument.
-public OnPlayerHealthCheat(playerid); - Called when using a cheat on a health, returns the playerid argument.
-public OnPlayerArmourCheat(playerid); - Called when using a cheat on a armour, returns the playerid argument.
-
-public OnPlayerTeleportCheat(playerid); - Called when using a cheat on a teleport, returns the playerid argument.
-public OnPlayerNopPos(playerid); - Called when using a cheat on a nop position, returns the playerid argument.
-public OnPlayerHighPing(playerid); - Called when ping is greater than limited. Returns the playerid argument.
+0x721: High Ping
+0x487: Cheat on Money
+0x466: Cheat on Armor
+0x618: Cheat on Weapon
+0x421: Cheat on Health
+0x241: Cheat on Nop Position
+0x433: Cheat on Teleport
+0x982: Cheat on Fly
 ```
 
 # Example of use:
 ```pawn
-forward OnPlayerFlyCheat(playerid);
-public OnPlayerFlyCheat(playerid)
-{
-	Ban(playerid);
-	return 1;
-}
-
-forward OnPlayerAimCheat(playerid);
-public OnPlayerAimCheat(playerid)
-{
-	Kick(playerid);
-	return 1;
-}
-
-forward OnPlayerWeaponCheat(playerid);
-public OnPlayerWeaponCheat(playerid)
-{
-	Kick(playerid);
-	return 1;
-}
-
-forward OnPlayerMoneyCheat(playerid);
-public OnPlayerMoneyCheat(playerid)
-{
-	Ban(playerid);
-	return 1;
-}
-
-forward OnPlayerHealthCheat(playerid);
-public OnPlayerHealthCheat(playerid)
-{
-	Kick(playerid);
-	return 1;
-}
-
-forward OnPlayerArmourCheat(playerid);
-public OnPlayerArmourCheat(playerid)
-{
-	Kick(playerid);
-	return 1;
-}
-
-forward OnPlayerTeleportCheat(playerid);
-public OnPlayerTeleportCheat(playerid)
-{
-	Kick(playerid);
-	return 1;
-}
-
-forward OnPlayerNopPos(playerid);
-public OnPlayerNopPos(playerid)
-{
-	Kick(playerid);
-	return 1;
-}
-
-forward OnPlayerHighPing(playerid);
-public OnPlayerHighPing(playerid)
+forward OnPlayerCheat(playerid, code); // code type: string
+public OnPlayerCheat(playerid, code)
 {
 	Kick(playerid);
 	return 1;
