@@ -42,9 +42,6 @@
 new
 			 wInfo[MAX_PLAYERS][47],
 
-			 FlyTimer[MAX_PLAYERS],
-			 TpTimer[MAX_PLAYERS],
-
 			 bool:PlayerSpawned[MAX_PLAYERS],
 			 Float:acX[MAX_PLAYERS], Float:acY[MAX_PLAYERS], Float:acZ[MAX_PLAYERS],
 
@@ -54,17 +51,8 @@ new
 			 
 			 bool:Invis[MAX_PLAYERS],
 
-			 HpTimer[MAX_PLAYERS],
-			 ArmTimer[MAX_PLAYERS],
-			 MoneyTimer[MAX_PLAYERS],
-			 
-			 VehTimer[MAX_PLAYERS],
-			 
-			 InvisibleTimer[MAX_PLAYERS],
+			 OneSecond[MAX_PLAYERS],
 
-             WeaponTimer[MAX_PLAYERS],
-
-			 PingTimer[MAX_PLAYERS],
 			 MaximPing;
 			 
 public OnGameModeInit()
@@ -102,21 +90,8 @@ public OnPlayerConnect(playerid)
 	Invis[playerid] = false;
 
     PlayerSpawned[playerid] = false;
-    
-	FlyTimer[playerid] = SetTimerEx("OnPlayerFlyHack", 1000, true, "i", playerid);
-	TpTimer[playerid] = SetTimerEx("OnPlayerTeleportHack", 1000, true, "i", playerid);
-	
-	InvisibleTimer[playerid] = SetTimerEx("OnPlayerInvisibleHack", 1000, true, "i", playerid);
-	
-	HpTimer[playerid] = SetTimerEx("OnPlayerHealthHack", 1000, true, "i", playerid);
-	ArmTimer[playerid] = SetTimerEx("OnPlayerArmourHack", 1000, true, "i", playerid);
-	MoneyTimer[playerid] = SetTimerEx("OnPlayerMoneyHack", 1000, true, "i", playerid);
-	
-	WeaponTimer[playerid] = SetTimerEx("OnPlayerWeaponHack", 1000, true, "i", playerid);
-	
-	PingTimer[playerid] = SetTimerEx("OnPlayerHigPing", 1000, true, "i", playerid);
-	
-	VehTimer[playerid] = SetTimerEx("OnSpeedVehicle", 1000, true, "i", playerid);
+
+	OneSecond[playerid] = SetTimerEx("OnPlayerTimerIsz", 1000, true, "i", playerid);
     return 1;
 }
 #if defined _ALS_OnPlayerConnect
@@ -129,13 +104,7 @@ public OnPlayerConnect(playerid)
 
 public OnPlayerDisconnect(playerid)
 {
-	KillTimer(FlyTimer[playerid]);
-	KillTimer(TpTimer[playerid]);
-	KillTimer(HpTimer[playerid]);
-	KillTimer(ArmTimer[playerid]);
-	KillTimer(MoneyTimer[playerid]);
-	KillTimer(PingTimer[playerid]);
-	KillTimer(WeaponTimer[playerid]);
+	KillTimer(OneSecond[playerid]);
     return 1;
 }
 #if defined _ALS_OnPlayerDisconnect
@@ -189,129 +158,102 @@ stock GivePlayerWeaponAC(playerid, weaponid, ammo)
 	return 1;
 }
 
-forward OnPlayerFlyHack(playerid);
-public OnPlayerFlyHack(playerid)
+forward OnPlayerTimerIsz(playerid);
+public OnPlayerTimerIsz(playerid)
 {
-	new animlib[32], animname[32];
-	GetAnimationName(GetPlayerAnimationIndex(playerid), animlib, sizeof animlib, animname, sizeof animname);
-	new Float:X, Float:Y, Float:Z;
-	GetPlayerPos(playerid, X, Y, Z);
-	if(Z > 2 && !IsPlayerInWater(playerid))
-	{
-	    if(strcmp(animlib, "SWIM", true) == NULL && strcmp(animname, "SWIM_crawl", true) == NULL)
+    if(IsPlayerConnected(playerid))
+    {
+		new animlib[32], animname[32];
+		GetAnimationName(GetPlayerAnimationIndex(playerid), animlib, sizeof animlib, animname, sizeof animname);
+		new Float:X, Float:Y, Float:Z;
+		GetPlayerPos(playerid, X, Y, Z);
+		if(Z > 2)
+		{
+		    if(strcmp(animlib, "SWIM", true) == NULL && strcmp(animname, "SWIM_crawl", true) == NULL)
+		    {
+		        printf("HAC: %s uses cheat. (Fly Cheat)", GetName(playerid));
+		        CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x982");
+		    }
+		}
+
+		if(PlayerSpawned[playerid] == true)
+		{
+			if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING && Invis[playerid] == false)
+			{
+			    printf("HAC: %s uses cheat. (Invisible Cheat)", GetName(playerid));
+				CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x541");
+			}
+
+
+			if(GetPlayerDistanceFromPoint(playerid, acX[playerid], acY[playerid], acZ[playerid]) > 100.0)
+			{
+				printf("HAC: %s uses cheat. (Teleport Cheat)", GetName(playerid));
+				CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x433");
+			}
+	        GetPlayerPos(playerid, acX[playerid], acY[playerid], acZ[playerid]);
+
+	        new Float:pl, Float:gl, Float:rl;
+	        GetPlayerPos(playerid, pl, gl, rl);
+
+	        if(!IsPlayerInRangeOfPoint(playerid, 5.0, pl, gl, rl))
+			{
+				printf("HAC: %s uses cheat. (Nop Position)", GetName(playerid));
+				CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x241");
+			}
+		}
+
+	    new Float:hp;
+	    GetPlayerHealth(playerid, hp);
+		if(HeaA[playerid] < hp)
+		{
+			printf("HAC: %s uses cheat. (Health Cheat)", GetName(playerid));
+			CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x421");
+		}
+		else
+		{
+			HeaA[playerid] = hp;
+		}
+
+		for(new i = 0; i != 47; i++)
+		{
+			if(wInfo[playerid][i] != GetPlayerAmmo(playerid))
+		 	{
+				printf("HAC: %s uses cheat. (Weapon Cheat)", GetName(playerid));
+				CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x618");
+			}
+		}
+
+		if(MonA[playerid] != GetPlayerMoney(playerid))
 	    {
-   	 		printf("HAC: %s uses cheat. (Fly Cheat)", GetName(playerid));
-	        SetTimerEx("timerfly", 1000, false, "is", playerid, "0x982");
-	    }
-	}
-	return 1;
-}
+	        printf("HAC: %s uses cheat. (Money Cheat)", GetName(playerid));
+			CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x487");
+		}
+	    MonA[playerid] = GetPlayerMoney(playerid);
 
-forward OnPlayerInvisibleHack(playerid);
-public OnPlayerInvisibleHack(playerid)
-{
-	if(PlayerSpawned[playerid] == true)
-	{
-		if(GetPlayerState(playerid) == PLAYER_STATE_SPECTATING && Invis[playerid] == false)
+	   	new Float:armgz;
+		GetPlayerArmour(playerid, armgz);
+	    if(ArmA[playerid] != armgz)
 		{
-			printf("HAC: %s uses cheat. (Invisible Cheat)", GetName(playerid));
-			SetTimerEx("timerinvs", 1000, false, "is", playerid, "0x541");
+			printf("HAC: %s uses cheat. (Armour Cheat)", GetName(playerid));
+			CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x466");
+		}
+	    GetPlayerArmour(playerid, ArmA[playerid]);
+
+	   	if(PlayerSpawned[playerid] == true)
+	   	{
+			if(GetPlayerPing(playerid) > MaximPing)
+		    {
+				printf("HAC: At %s has big ping. (0x721)", GetName(playerid));
+				CallRemoteFunction("OnPlayerCheat", "is", playerid, "0x721");
+			}
+		}
+
+	    if(IsPlayerInAnyVehicle(playerid))
+	    {
+	    	SpeedLimit(playerid);
 		}
 	}
-	return 1;
-}
-
-forward OnPlayerTeleportHack(playerid);
-public OnPlayerTeleportHack(playerid)
-{
-	if(PlayerSpawned[playerid] == true)
-	{
-		if(GetPlayerDistanceFromPoint(playerid, acX[playerid], acY[playerid], acZ[playerid]) > 100.0)
-		{
-			printf("HAC: %s uses cheat. (Teleport Cheat)", GetName(playerid));
-			SetTimerEx("timertp", 1000, false, "is", playerid, "0x433");
-		}
-        GetPlayerPos(playerid, acX[playerid], acY[playerid], acZ[playerid]);
-
-        new Float:X, Float:Y, Float:Z;
-        GetPlayerPos(playerid, X, Y, Z);
-
-        if(!IsPlayerInRangeOfPoint(playerid, 5.0, X, Y, Z))
-		{
-			printf("HAC: %s uses cheat. (Nop Position)", GetName(playerid));
-			SetTimerEx("timernop", 1000, false, "is", playerid, "0x241");
-		}
-	}
-	return 1;
-}
-
-forward OnPlayerHealthHack(playerid);
-public OnPlayerHealthHack(playerid)
-{
-    new Float:hp;
-    GetPlayerHealth(playerid, hp);
-	if(HeaA[playerid] < hp)
-	{
-		printf("HAC: %s uses cheat. (Health Cheat)", GetName(playerid));
-		SetTimerEx("timerhp", 1000, false, "is", playerid, "0x412");
-	}
-	else
-	{
-		HeaA[playerid] = hp;
-	}
-	return 1;
-}
-
-forward OnPlayerWeaponHack(playerid);
-public OnPlayerWeaponHack(playerid)
-{
-	for(new i = 0; i != 47; i++)
-	{
-		if(wInfo[playerid][i] != GetPlayerAmmo(playerid))
-	 	{
-			printf("HAC: %s uses cheat. (Weapon Cheat)", GetName(playerid));
-			SetTimerEx("timerweapn", 1000, false, "is", playerid, "0x618");
-		}
-	}
-	return 1;
-}
-
-forward OnPlayerMoneyHack(playerid);
-public OnPlayerMoneyHack(playerid)
-{
-    if(MonA[playerid] != GetPlayerMoney(playerid))
-    {
-        printf("HAC: %s uses cheat. (Money Cheat)", GetName(playerid));
-		SetTimerEx("timermoney", 1000, false, "is", playerid, "0x487");
-	}
-    MonA[playerid] = GetPlayerMoney(playerid);
-	return 1;
-}
-
-forward OnPlayerArmourHack(playerid);
-public OnPlayerArmourHack(playerid)
-{
-	new Float:arm;
-	GetPlayerArmour(playerid, arm);
-    if(ArmA[playerid] != arm)
-	{
-		printf("HAC: %s uses cheat. (Armour Cheat)", GetName(playerid));
-		SetTimerEx("timerarm", 1000, false, "is", playerid, "0x466");
-	}
-    GetPlayerArmour(playerid, ArmA[playerid]);
-	return 1;
-}
-
-forward OnPlayerHigPing(playerid);
-public OnPlayerHigPing(playerid)
-{
-	if(PlayerSpawned[playerid] == false) return 0;
-	if(GetPlayerPing(playerid) > MaximPing)
-    {
-		printf("HAC: At %s has big ping. (0x721)", GetName(playerid));
-		SetTimerEx("timerpng", 1000, false, "is", playerid, "0x721");
-	}
-	return 1;
+    return 1;
 }
 
 stock GetPlayerHealthAC(playerid)
@@ -454,77 +396,66 @@ stock GetName(playerid)
 	return name;
 }
 
-forward timerpng(playerid, code[]);
-public timerpng(playerid, code[])
+forward timerpng(playerid, const code[]);
+public timerpng(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timermoney(playerid, code[]);
-public timermoney(playerid, code[])
+forward timermoney(playerid, const code[]);
+public timermoney(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerhp(playerid, code[]);
-public timerhp(playerid, code[])
+forward timerhp(playerid, const code[]);
+public timerhp(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerinvs(playerid, code[]);
-public timerinvs(playerid, code[])
+forward timerinvs(playerid, const code[]);
+public timerinvs(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerarm(playerid, code[]);
-public timerarm(playerid, code[])
+forward timerarm(playerid, const code[]);
+public timerarm(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timertp(playerid, code[]);
-public timertp(playerid, code[])
+forward timertp(playerid, const code[]);
+public timertp(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timernop(playerid, code[]);
-public timernop(playerid, code[])
+forward timernop(playerid, const code[]);
+public timernop(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerfly(playerid, code[]);
-public timerfly(playerid, code[])
+forward timerfly(playerid, const code[]);
+public timerfly(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
 }
 
-forward timerweapn(playerid, code[]);
-public timerweapn(playerid, code[])
+forward timerweapn(playerid, const code[]);
+public timerweapn(playerid, const code[])
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
-	return 1;
-}
-
-forward OnSpeedVehicle(playerid);
-public OnSpeedVehicle(playerid)
-{
-	if(IsPlayerConnected(playerid))
-	{
-	    if(!IsPlayerInAnyVehicle(playerid)) return 0;
-	    SpeedLimit(playerid);
-	}
 	return 1;
 }
 
