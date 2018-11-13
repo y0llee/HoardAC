@@ -36,7 +36,7 @@ TogglePlayerSpectatingAC(playerid, toggle); - Enables spectating mode for the pl
 ```pawn
 0x721: High Ping
 0x487: Cheat on Money
-0x466: Cheat on Armor
+0x466: Cheat on Armour
 0x618: Cheat on Weapon
 0x421: Cheat on Health
 0x241: Cheat on Nop Position
