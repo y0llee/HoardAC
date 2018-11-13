@@ -40,6 +40,7 @@ GetPlayerArmourAC(playerid); - Gets the true amount of the player's armor.
 0x241: Cheat on Nop Position
 0x433: Cheat on Teleport
 0x982: Cheat on Fly
+0x541: Cheat on Invisible
 ```
 
 # Example of use:
