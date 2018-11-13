@@ -25,7 +25,7 @@
 // List Anti-Cheats:
 
 // 		WeaponHack
-//      AntiDeAMX
+//              AntiDeAMX
 // 		FlyHack
 // 		MoneyHack
 // 		HealthHack
@@ -33,7 +33,8 @@
 // 		TeleportHack
 // 		NopPos
 // 		HighPing
-//      InvisibleHack
+//              InvisibleHack
+//              SpeedHack (Vehicle)
 
 #include <a_samp>
 #define NULL 0
@@ -56,6 +57,8 @@ new
 			 HpTimer[MAX_PLAYERS],
 			 ArmTimer[MAX_PLAYERS],
 			 MoneyTimer[MAX_PLAYERS],
+			 
+			 VehTimer[MAX_PLAYERS],
 			 
 			 InvisibleTimer[MAX_PLAYERS],
 
@@ -112,6 +115,8 @@ public OnPlayerConnect(playerid)
 	WeaponTimer[playerid] = SetTimerEx("OnPlayerWeaponHack", 1000, true, "i", playerid);
 	
 	PingTimer[playerid] = SetTimerEx("OnPlayerHigPing", 1000, true, "i", playerid);
+	
+	VehTimer[playerid] = SetTimerEx("OnSpeedVehicle", 1000, true, "i", playerid);
     return 1;
 }
 #if defined _ALS_OnPlayerConnect
@@ -510,4 +515,144 @@ public timerweapn(playerid, code)
 {
 	CallRemoteFunction("OnPlayerCheat", "is", playerid, code);
 	return 1;
+}
+
+forward OnSpeedVehicle(playerid);
+public OnSpeedVehicle(playerid)
+{
+	if(IsPlayerConnected(playerid))
+	{
+	    if(!IsPlayerInAnyVehicle(playerid)) return 0;
+	    SpeedLimit(playerid);
+	}
+	return 1;
+}
+
+stock SpeedLimit(playerid)
+{
+	new carid = GetPlayerVehicleID(carid);
+    if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 400 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 401 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 402 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 403 && GetVehicleSpeed(carid) > 75) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 404 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 405 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 409 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 410 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 411 && GetVehicleSpeed(carid) > 130) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 412 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 413 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 415 && GetVehicleSpeed(carid) > 115) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 416 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 418 && GetVehicleSpeed(carid) > 85) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 419 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 420 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 421 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 422 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 426 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 427 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 428 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 429 && GetVehicleSpeed(carid) > 120) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 433 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 434 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 436 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 439 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 444 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 445 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 451 && GetVehicleSpeed(carid) > 115) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 459 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 461 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 463 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 466 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 467 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 468 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 470 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 474 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 475 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 477 && GetVehicleSpeed(carid) > 115) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 478 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 479 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 480 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 483 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 489 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 490 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 491 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 492 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 494 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 495 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 496 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 498 && GetVehicleSpeed(carid) > 85) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 500 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 502 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 503 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 505 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 506 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 507 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 516 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 517 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 518 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 521 && GetVehicleSpeed(carid) > 130) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 522 && GetVehicleSpeed(carid) > 130) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 523 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 525 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 526 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 527 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 528 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 529 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 531 && GetVehicleSpeed(carid) > 80) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 533 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 534 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 535 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 536 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 540 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 541 && GetVehicleSpeed(carid) > 120) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 542 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 543 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 545 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 546 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 547 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 549 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 550 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 551 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 554 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 555 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 558 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 559 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 560 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 561 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 562 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 565 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 566 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 567 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 568 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 571 && GetVehicleSpeed(carid) > 75) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 575 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 576 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 579 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 580 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 581 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 582 && GetVehicleSpeed(carid) > 95) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 586 && GetVehicleSpeed(carid) > 125) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 587 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 589 && GetVehicleSpeed(carid) > 105) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 596 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 597 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 598 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 599 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 600 && GetVehicleSpeed(carid) > 100) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 601 && GetVehicleSpeed(carid) > 90) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 602 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+    else if(GetVehicleModel(GetPlayerVehicleID(playerid)) == 603 && GetVehicleSpeed(carid) > 110) CallRemoteFunction("PlayerOnCheat", "is", playerid, "0x315");
+}
+
+stock GetVehicleSpeed(vehicleid)
+{
+        if(vehicleid != INVALID_VEHICLE_ID)
+        {
+                new Float:Pos[3],Float:VS ;
+                GetVehicleVelocity(vehicleid, Pos[0], Pos[1], Pos[2]);
+                VS = floatsqroot(Pos[0]*Pos[0] + Pos[1]*Pos[1] + Pos[2]*Pos[2])*200;
+                return floatround(VS,floatround_round);
+        }
+        return INVALID_VEHICLE_ID;
 }
