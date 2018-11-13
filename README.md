@@ -29,6 +29,8 @@ SetPlayerArmourAC(playerid, armour); - Sets the amount of armor using the anti-c
 GetPlayerMoneyAC(playerid); - Gets the true amount of player money.
 GetPlayerHealthAC(playerid); - Gets the true amount of health of the player.
 GetPlayerArmourAC(playerid); - Gets the true amount of the player's armor.
+
+TogglePlayerSpectatingAC(playerid, toggle); - Enables spectating mode for the player in an honest method.
 ```
 # Codes:
 ```pawn
