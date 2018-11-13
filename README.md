@@ -1,5 +1,5 @@
-# HoardAC ( 3 . 21 )
-Anti-Cheat system for the SA-MP.
+# HoardAC ( 4 . 56 )
+Anti-Cheat system for the CR-MP.
 Author: yollee
 
 To enable Anti-Cheat, configure it using as s and connect include.
