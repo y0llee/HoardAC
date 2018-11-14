@@ -1,4 +1,4 @@
-# HoardAC ( 4 . 67 )
+# HoardAC ( 5 . 84 )
 Anti-Cheat system for the CR-MP.
 Author: yollee
 
